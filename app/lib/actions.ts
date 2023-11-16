@@ -9,7 +9,7 @@ const FormSchema = z.object({
     customerId: z.string({
         invalid_type_error: "Please select a customer.",
     }),
-    amount: z.coerce.number().gt(0, { message: "PLease select an amount greater than 0$" }),
+    amount: z.coerce.number().gt(0, { message: "PLease select an amount greater than 0$." }),
     status: z.enum(["pending", "paid"], {
         invalid_type_error: "PLease select an invoices status.",
     }),
@@ -34,7 +34,6 @@ export async function createInvoice(prevState: State, formData: FormData) {
         status: formData.get("status"),
     });
 
-    console.log(validatedFields);
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
